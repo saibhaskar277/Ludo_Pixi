@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "dev": "Vite"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "gsap": "^3.15.0",
