@@ -27,8 +27,19 @@ export class GameScene extends Container {
     this.ui = new GameUI();
     this.addChild(this.ui);
 
+    // --- NEW: Hook up the visual Dice Button ---
+    this.ui.onRollClick = () => {
+      if (
+        this.engine.gameState.gameState === GamePhase.WAITING_FOR_ROLL &&
+        !this.isAnimating
+      ) {
+        this.handleRoll();
+      }
+    };
+    // ------------------------------------------
+
     this.cheatUI = new CheatUI();
-    this.cheatUI.position.set(0, 400);
+    this.cheatUI.position.set(0, 420); // Moved down slightly to make room for the new button
     this.addChild(this.cheatUI);
 
     this.boardContainer.position.set(GameConfig.UI_WIDTH, 0);
@@ -38,9 +49,10 @@ export class GameScene extends Container {
     this.boardContainer.addChild(board);
 
     this.createPieces();
-    this.updatePieceLayout(false); // <--- Initial static layout
+    this.updatePieceLayout(false);
     this.updateUI();
 
+    // SPACEBAR still works for desktop users!
     window.addEventListener("keydown", (e) => {
       if (
         e.key === " " &&

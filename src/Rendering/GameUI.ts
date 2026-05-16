@@ -8,10 +8,14 @@ export class GameUI extends Container {
   private diceText: Text;
   private instructionText: Text;
 
+  // NEW: Button properties
+  private rollButton: Container;
+  private rollButtonBg: Graphics;
+  public onRollClick: (() => void) | null = null; // Callback for GameScene
+
   constructor() {
     super();
 
-    // Side panel background
     const bg = new Graphics();
     bg.rect(0, 0, GameConfig.UI_WIDTH, GameConfig.GAME_HEIGHT);
     bg.fill({ color: 0x111111 });
@@ -40,13 +44,41 @@ export class GameUI extends Container {
     });
     this.instructionText.position.set(20, 200);
 
-    this.addChild(this.turnText, this.diceText, this.instructionText);
+    // --- SETUP THE DICE BUTTON ---
+    this.rollButton = new Container();
+    this.rollButton.position.set(20, 280);
+
+    this.rollButtonBg = new Graphics();
+    this.rollButtonBg.roundRect(0, 0, 180, 50, 15);
+    this.rollButtonBg.fill(0x00aa00);
+
+    const btnText = new Text({
+      text: "ROLL DICE",
+      style: { fill: 0xffffff, fontSize: 24, fontWeight: "bold" },
+    });
+    btnText.position.set(28, 10); // Center text in button
+
+    this.rollButton.addChild(this.rollButtonBg, btnText);
+
+    // Add interactivity
+    this.rollButton.eventMode = "static";
+    this.rollButton.cursor = "pointer";
+    this.rollButton.on("pointerdown", () => {
+      if (this.onRollClick) this.onRollClick();
+    });
+    // ----------------------------
+
+    this.addChild(
+      this.turnText,
+      this.diceText,
+      this.instructionText,
+      this.rollButton,
+    );
   }
 
   public update(turn: Color, roll: number | null, phase: GamePhase) {
     this.turnText.text = `Turn:\n${turn}`;
 
-    // Dynamically change text color based on turn
     const colors: Record<Color, number> = {
       [Color.RED]: 0xff4444,
       [Color.GREEN]: 0x44ff44,
@@ -57,12 +89,19 @@ export class GameUI extends Container {
 
     this.diceText.text = roll !== null ? `Roll: ${roll}` : `Roll: -`;
 
+    // Update instruction text AND Button State
     if (phase === GamePhase.WAITING_FOR_ROLL) {
-      this.instructionText.text = "Press SPACE\nto roll dice";
+      this.instructionText.text = "Click button\nor press SPACE";
+      this.rollButton.alpha = 1; // Fully visible
+      this.rollButton.eventMode = "static"; // Clickable
     } else if (phase === GamePhase.WAITING_FOR_MOVE) {
       this.instructionText.text = "Click a valid\npiece to move";
+      this.rollButton.alpha = 0.3; // Faded out
+      this.rollButton.eventMode = "none"; // Disabled
     } else if (phase === GamePhase.GAME_OVER) {
       this.instructionText.text = "GAME OVER!";
+      this.rollButton.alpha = 0.3;
+      this.rollButton.eventMode = "none";
     }
   }
 }
