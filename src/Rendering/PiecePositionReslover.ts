@@ -1,6 +1,7 @@
 import { PieceState, PositionType } from "../Core/State/GameState";
 import { BoardLayout } from "./BoardLayout";
 import { Color } from "../GameConfigs/BoardConfig";
+import { GameConfig } from "../GameConfigs/GameConfig";
 
 export class PiecePositionResolver {
   public static resolve(piece: PieceState) {
@@ -17,32 +18,25 @@ export class PiecePositionResolver {
         return BoardLayout.yardCoordinates[piece.color][piece.id];
 
       case PositionType.GOAL:
-        // --- NEW: Calculate exact centers of the inner triangles! ---
-        // The exact center of your 720x720 board is (360, 360)
-        const CENTER_X = 360;
-        const CENTER_Y = 360;
+        // 1. Find exact center of whatever the board size is
+        const CENTER = GameConfig.BOARD_SIZE / 2;
 
-        // How far into the triangle the piece should sit (tweak this number!)
-        const OFFSET = 28;
+        // 2. Offset pieces by ~60% of a tile size into their triangle
+        const TILE_SIZE = GameConfig.BOARD_SIZE / 15;
+        const OFFSET = TILE_SIZE * 0.6;
 
-        if (piece.color === Color.RED) {
-          // Red is the Bottom triangle, push Y down
-          return { x: CENTER_X, y: CENTER_Y + OFFSET };
-        }
-        if (piece.color === Color.GREEN) {
-          // Green is the Left triangle, push X left
-          return { x: CENTER_X - OFFSET, y: CENTER_Y };
-        }
-        if (piece.color === Color.YELLOW) {
-          // Yellow is the Top triangle, push Y up
-          return { x: CENTER_X, y: CENTER_Y - OFFSET };
-        }
-        if (piece.color === Color.BLUE) {
-          // Blue is the Right triangle, push X right
-          return { x: CENTER_X + OFFSET, y: CENTER_Y };
-        }
+        if (piece.color === Color.RED) return { x: CENTER, y: CENTER + OFFSET };
+        if (piece.color === Color.GREEN)
+          return { x: CENTER - OFFSET, y: CENTER };
+        if (piece.color === Color.YELLOW)
+          return { x: CENTER, y: CENTER - OFFSET };
+        if (piece.color === Color.BLUE)
+          return { x: CENTER + OFFSET, y: CENTER };
 
-        return { x: CENTER_X, y: CENTER_Y };
+        return { x: CENTER, y: CENTER };
+
+      default:
+        return { x: -1000, y: -1000 };
     }
   }
 }

@@ -2,6 +2,7 @@ import { Graphics, Container } from "pixi.js";
 import { PieceState } from "../Core/State/GameState";
 import { PiecePositionResolver } from "./PiecePositionReslover";
 import { Color } from "../GameConfigs/BoardConfig";
+import { GameConfig } from "../GameConfigs/GameConfig";
 
 export class PieceView extends Container {
   public pieceState: PieceState;
@@ -39,7 +40,10 @@ export class PieceView extends Container {
         break;
     }
 
-    this.body.circle(0, 0, 18);
+    const TILE_SIZE = GameConfig.BOARD_SIZE / 15;
+    const PIECE_RADIUS = TILE_SIZE * 0.35; // Pieces will take up 70% of a tile
+
+    this.body.circle(0, 0, PIECE_RADIUS);
     this.body.fill(color);
     this.body.stroke({ color: 0xffffff, width: 4 });
   }
