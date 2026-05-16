@@ -1,30 +1,152 @@
-🎲 Ludo PixiJS
-A fully interactive, visually rich, and modern Ludo game built from scratch using TypeScript, PixiJS (v8), and GSAP.
+# 🎲 Ludo PixiJS
 
-This project features a robust architecture with a strict separation between the core game logic (Engine) and the visual representation (Renderer). It includes smooth tile-by-tile animations, dynamic piece stacking, and a custom developer debug UI.
+A modern, fully interactive Ludo game built with **TypeScript**, **PixiJS v8**, and **GSAP**.
 
-✨ Features
-Complete Ludo Rules Engine: Accurately handles safe zones, capturing opponents, home path restrictions, and exact-roll goal entries.
+This project is designed with a scalable architecture that cleanly separates:
+- core gameplay logic
+- rendering systems
+- animations
+- state management
 
-Dynamic Piece Stacking: When multiple pieces occupy the same tile, they automatically scale down and arrange themselves into a neat grid to avoid overlapping and layering issues.
+The goal is to create a smooth, visually polished, and extensible board game experience suitable for future multiplayer and mobile support.
 
-Smooth Pathfinding Animations: Pieces physically "walk" step-by-step along the track instead of teleporting, powered by GSAP.
+---
 
-Auto-Turn Skipping: If a player rolls the dice but has no valid moves (e.g., all pieces are in the yard and they didn't roll a 6), the engine automatically skips their turn.
+# ✨ Features
 
-Extra Turn Rewards: Rolling a 6 or capturing an opponent's piece correctly grants the player an extra turn.
+## 🎮 Complete Ludo Rules Engine
 
-Developer Cheat UI: A modular, built-in cheat panel to force specific dice rolls (1-6) for rapid debugging and edge-case testing.
+Implements core gameplay mechanics including:
+- Safe tiles
+- Piece capturing
+- Home path restrictions
+- Exact-roll goal entry
+- Extra turns on rolling 6
+- Automatic turn skipping
 
-🛠️ Tech Stack
-Language: TypeScript
+---
 
-Rendering: PixiJS (Canvas/WebGL)
+## 🧩 Dynamic Piece Stacking
 
-Animations: GSAP (GreenSock Animation Platform)
+When multiple pieces occupy the same tile, they automatically:
+- scale down
+- reposition
+- arrange into a clean grid
 
-Bundler: Vite
+This avoids:
+- overlapping pieces
+- z-index issues
+- unreadable stacks
 
-🚀 Getting Started
-Prerequisites
-Make sure you have Node.js installed on your machine.
+---
+
+## 🎞️ Smooth Tile-by-Tile Animations
+
+Powered by **GSAP**.
+
+Pieces move:
+- tile-by-tile
+- with smooth interpolation
+- using path-based movement
+
+instead of teleporting instantly.
+
+---
+
+## 🎲 Developer Cheat Panel
+
+Includes built-in debugging tools for:
+- forcing dice rolls
+- testing edge cases
+- validating gameplay rules quickly
+
+Useful during gameplay system development.
+
+---
+
+## 🏗️ Scalable Architecture
+
+The project follows a modular architecture with:
+- Engine layer
+- Rendering layer
+- Systems layer
+- State layer
+
+This structure makes it easy to extend into:
+- multiplayer
+- replay systems
+- AI players
+- mobile builds
+
+---
+
+# 🛠️ Tech Stack
+
+- **TypeScript**
+- **PixiJS v8**
+- **GSAP**
+- **Vite**
+
+---
+
+# 📂 Project Structure
+
+```txt
+src/
+ ├── Core/
+ │    ├── Engine/
+ │    ├── Logic/
+ │    ├── State/
+ │    └── Systems/
+ │
+ ├── Rendering/
+ │
+ ├── Scenes/
+ │
+ ├── GameConfigs/
+ │
+ └── HelperClasses/
+```
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+Make sure you have installed:
+- Node.js
+- npm
+
+---
+
+## Installation
+
+```bash
+git clone <repo-url>
+
+cd ludo-pixijs
+
+npm install
+```
+
+---
+
+## Run Development Server
+
+```bash
+npm run dev
+```
+
+
+# 🎯 Future Improvements
+
+Planned features:
+- Online multiplayer
+- Mobile support
+- AI players
+- Sound effects
+- Particle systems
+- Matchmaking
+- Replay system
+
