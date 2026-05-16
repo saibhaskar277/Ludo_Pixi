@@ -6,32 +6,34 @@
     <title>Ludo</title>
 
     <!--
-      FIX: Content Security Policy
+      Content Security Policy
       ─────────────────────────────────────────────────────────────────────────
-      GitHub Pages enforces a strict CSP that blocks eval().  Vite's default
-      "inline" sourcemaps inject eval() calls into the bundle.  We solve this
-      two ways:
+      worker-src blob:
+        PixiJS creates Web Workers from blob: URLs internally for texture
+        decompression (BASIS/KTX2) and other async GPU work.  Without this
+        directive the browser falls back to script-src ('self'), which blocks
+        blob: origins and throws:
+          "Creating a worker from 'blob:…' violates CSP script-src 'self'"
 
-        1. vite.config.ts sets  sourcemap: "hidden"  so no eval() ever appears
-           in the production bundle.
+        worker-src is intentionally narrow — blob: is only permitted for
+        workers, not for scripts or other resource types.
 
-        2. This meta tag explicitly declares what IS allowed, matching GitHub
-           Pages' own policy so there are no surprises.
-
-      If you need to add a CDN later (e.g. for fonts), add its origin to
-      style-src / font-src instead of broadening script-src.
+      script-src 'self'
+        No unsafe-eval, no unsafe-inline.  Vite's "hidden" sourcemap mode
+        writes separate .map files so no eval() appears in the bundle.
     -->
     <meta
       http-equiv="Content-Security-Policy"
       content="
-        default-src 'self';
-        script-src  'self';
-        style-src   'self' 'unsafe-inline';
-        img-src     'self' data: blob:;
-        connect-src 'self';
-        font-src    'self';
-        object-src  'none';
-        base-uri    'self';
+        default-src  'self';
+        script-src   'self';
+        worker-src   blob:;
+        style-src    'self' 'unsafe-inline';
+        img-src      'self' data: blob:;
+        connect-src  'self';
+        font-src     'self';
+        object-src   'none';
+        base-uri     'self';
       "
     />
 
