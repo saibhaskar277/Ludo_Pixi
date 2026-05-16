@@ -1,24 +1,36 @@
 import { defineConfig } from "vite";
+import { resolve } from "path";
 
-export default defineConfig({
-  // 1. Relative base path: CRITICAL for Capacitor/Android.
-  // Without this, the app looks for scripts at the root of the phone instead of inside the app folder.
+export default defineConfig(({ command }) => ({
+  // REQUIRED for GitHub Pages: use "./" so asset URLs are relative.
+  // If your repo is at  https://user.github.io/my-game/  this keeps every
+  // script/asset import relative to the HTML file rather than the domain root.
   base: "./",
 
   build: {
-    // 2. Where the compiled files go. Capacitor looks for this folder.
     outDir: "dist",
-
-    // 3. Optional: Ensuring the build is compatible with older mobile WebViews
-    target: "esnext",
-
-    // 4. Clean the folder before every build
     emptyOutDir: true,
 
-    // 5. Sourcemaps help you debug code on the phone via Chrome DevTools
-    sourcemap: true,
+    // FIX 1 — CSP / eval error
+    // "inline" sourcemaps embed a data-URI into the .js file and cause GitHub
+    // Pages' CSP to block eval().  "hidden" writes separate .map files that
+    // DevTools can load on demand without any eval() call in the bundle.
+    sourcemap: command === "build" ? "hidden" : true,
+
+    rollupOptions: {
+      // FIX 2 — MIME-type error
+      // Explicitly tell Rollup where your HTML entry point is.  Vite will then
+      // rewrite every <script src="…ts"> reference in that file to the compiled
+      // .js output path, so the browser never receives a raw .ts URL.
+      input: resolve(__dirname, "index.html"),
+    },
+
+    // Keep compatible with modern Android WebViews (Chromium 85+).
+    target: "es2020",
   },
 
-  // 6. Assets configuration
-  publicDir: "public", // Make sure your snake sprites are in a folder named 'public'
-});
+  // Only files placed here are copied verbatim to dist/.
+  // Never put .ts source files in public/ — they would be served as-is and
+  // trigger the video/mp2t MIME error.
+  publicDir: "public",
+}));

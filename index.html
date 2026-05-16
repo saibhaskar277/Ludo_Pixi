@@ -3,28 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ludo</title>
 
-    <title>Ludo Pixi</title>
+    <!--
+      FIX: Content Security Policy
+      ─────────────────────────────────────────────────────────────────────────
+      GitHub Pages enforces a strict CSP that blocks eval().  Vite's default
+      "inline" sourcemaps inject eval() calls into the bundle.  We solve this
+      two ways:
 
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+        1. vite.config.ts sets  sourcemap: "hidden"  so no eval() ever appears
+           in the production bundle.
 
-      body {
-        overflow: hidden;
-        background: #1e1e1e;
-      }
+        2. This meta tag explicitly declares what IS allowed, matching GitHub
+           Pages' own policy so there are no surprises.
 
-      canvas {
-        display: block;
-      }
-    </style>
-  </head>
+      If you need to add a CDN later (e.g. for fonts), add its origin to
+      style-src / font-src instead of broadening script-src.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src  'self';
+        style-src   'self' 'unsafe-inline';
+        img-src     'self' data: blob:;
+        connect-src 'self';
+        font-src    'self';
+        object-src  'none';
+        base-uri    'self';
+      "
+    />
 
-  <body>
+    <!--
+      IMPORTANT — reference your TypeScript entry point here exactly like this.
+      Vite's build step rewrites this to the compiled .js path automatically.
+      If you instead write  src="./src/main.js"  the browser will try to fetch
+      the raw .ts file at runtime and GitHub Pages will serve it as video/mp2t.
+    -->
     <script type="module" src="./src/main.ts"></script>
+  </head>
+  <body>
+    <!-- PixiJS mounts its canvas here -->
   </body>
 </html>
