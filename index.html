@@ -5,23 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ludo</title>
 
-    <!--
-      Content Security Policy
-      ─────────────────────────────────────────────────────────────────────────
-      worker-src blob:
-        PixiJS creates Web Workers from blob: URLs internally for texture
-        decompression (BASIS/KTX2) and other async GPU work.  Without this
-        directive the browser falls back to script-src ('self'), which blocks
-        blob: origins and throws:
-          "Creating a worker from 'blob:…' violates CSP script-src 'self'"
-
-        worker-src is intentionally narrow — blob: is only permitted for
-        workers, not for scripts or other resource types.
-
-      script-src 'self'
-        No unsafe-eval, no unsafe-inline.  Vite's "hidden" sourcemap mode
-        writes separate .map files so no eval() appears in the bundle.
-    -->
     <meta
       http-equiv="Content-Security-Policy"
       content="
@@ -37,15 +20,7 @@
       "
     />
 
-    <!--
-      IMPORTANT — reference your TypeScript entry point here exactly like this.
-      Vite's build step rewrites this to the compiled .js path automatically.
-      If you instead write  src="./src/main.js"  the browser will try to fetch
-      the raw .ts file at runtime and GitHub Pages will serve it as video/mp2t.
-    -->
     <script type="module" src="./src/main.ts"></script>
   </head>
-  <body>
-    <!-- PixiJS mounts its canvas here -->
-  </body>
+  <body></body>
 </html>
