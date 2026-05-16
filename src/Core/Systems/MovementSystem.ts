@@ -20,7 +20,6 @@ export class MovementSystem {
       if (roll > distanceToEntry) {
         const homeSteps = roll - distanceToEntry - 1;
 
-        // --- FIX: Transition to GOAL state if exact roll ---
         if (homeSteps === LudoRules.HOME_PATH_LENGTH) {
           return {
             ...piece,
@@ -46,7 +45,6 @@ export class MovementSystem {
     if (piece.positionType === PositionType.HOME_PATH) {
       const next = piece.positionIndex + roll;
 
-      // --- FIX: Transition to GOAL state if exact roll ---
       if (next === LudoRules.HOME_PATH_LENGTH) {
         return {
           ...piece,

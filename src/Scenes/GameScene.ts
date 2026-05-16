@@ -109,7 +109,6 @@ export class GameScene extends Container {
     });
   }
 
-  // --- NEW STACKING LOGIC ---
   private updatePieceLayout(animate: boolean) {
     const groupedPieces: Record<string, PieceView[]> = {};
 
@@ -130,7 +129,6 @@ export class GameScene extends Container {
         return;
       }
 
-      // --- THE BUG FIX ---
       // Distinguish Home Path and Goal keys by color, so Blue and Yellow don't stack!
       let key = `${state.positionType}-${state.positionIndex}`;
       if (
@@ -144,7 +142,6 @@ export class GameScene extends Container {
       groupedPieces[key].push(pv);
     });
 
-    // ... rest of the method remains exactly the same
     Object.values(groupedPieces).forEach((group) => {
       const basePos = PiecePositionResolver.resolve(group[0].pieceState);
       const count = group.length;

@@ -8,10 +8,8 @@ export class BoardView extends Container {
   }
 
   private createBoard() {
-    // Use the fixed path from config
     const board = Sprite.from(GameConfig.BOARD_IMAGE_PATH);
 
-    // Apply fixed dimensions
     board.width = GameConfig.BOARD_SIZE;
     board.height = GameConfig.BOARD_SIZE;
 
