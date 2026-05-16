@@ -1,6 +1,7 @@
 import { Application, Assets } from "pixi.js";
 import { GameScene } from "./Scenes/GameScene"; // adjust path if needed
 import { GameConfig } from "./GameConfigs/GameConfig";
+import "pixi.js/unsafe-eval";
 
 async function bootstrap() {
   const app = new Application();
