@@ -14,8 +14,7 @@ export class MovementSystem {
     if (piece.positionType === PositionType.TRACK) {
       const homeEntry = LudoRules.HOME_ENTRY_INDEX[piece.color];
       const distanceToEntry =
-        (homeEntry - piece.positionIndex + LudoRules.TRACK_LENGTH) %
-        LudoRules.TRACK_LENGTH;
+        (homeEntry - piece.positionIndex + LudoRules.TRACK_LENGTH) % LudoRules.TRACK_LENGTH;
 
       if (roll > distanceToEntry) {
         const homeSteps = roll - distanceToEntry - 1;

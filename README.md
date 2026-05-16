@@ -3,6 +3,7 @@
 A modern, fully interactive Ludo game built with **TypeScript**, **PixiJS v8**, and **GSAP**.
 
 This project is designed with a scalable architecture that cleanly separates:
+
 - core gameplay logic
 - rendering systems
 - animations
@@ -17,6 +18,7 @@ The goal is to create a smooth, visually polished, and extensible board game exp
 ## 🎮 Complete Ludo Rules Engine
 
 Implements core gameplay mechanics including:
+
 - Safe tiles
 - Piece capturing
 - Home path restrictions
@@ -29,11 +31,13 @@ Implements core gameplay mechanics including:
 ## 🧩 Dynamic Piece Stacking
 
 When multiple pieces occupy the same tile, they automatically:
+
 - scale down
 - reposition
 - arrange into a clean grid
 
 This avoids:
+
 - overlapping pieces
 - z-index issues
 - unreadable stacks
@@ -45,6 +49,7 @@ This avoids:
 Powered by **GSAP**.
 
 Pieces move:
+
 - tile-by-tile
 - with smooth interpolation
 - using path-based movement
@@ -56,6 +61,7 @@ instead of teleporting instantly.
 ## 🎲 Developer Cheat Panel
 
 Includes built-in debugging tools for:
+
 - forcing dice rolls
 - testing edge cases
 - validating gameplay rules quickly
@@ -67,12 +73,14 @@ Useful during gameplay system development.
 ## 🏗️ Scalable Architecture
 
 The project follows a modular architecture with:
+
 - Engine layer
 - Rendering layer
 - Systems layer
 - State layer
 
 This structure makes it easy to extend into:
+
 - multiplayer
 - replay systems
 - AI players
@@ -115,6 +123,7 @@ src/
 ## Prerequisites
 
 Make sure you have installed:
+
 - Node.js
 - npm
 
@@ -138,10 +147,10 @@ npm install
 npm run dev
 ```
 
-
 # 🎯 Future Improvements
 
 Planned features:
+
 - Online multiplayer
 - Mobile support
 - AI players
@@ -149,4 +158,3 @@ Planned features:
 - Particle systems
 - Matchmaking
 - Replay system
-
