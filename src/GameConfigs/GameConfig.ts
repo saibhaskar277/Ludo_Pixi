@@ -7,5 +7,5 @@ export const GameConfig = {
 
   UI_WIDTH: 240,
   BACKGROUND_COLOR: "#222222",
-  BOARD_IMAGE_PATH: "/assets/Ludo.png",
+  BOARD_IMAGE_PATH: "assets/Ludo.png",
 };
