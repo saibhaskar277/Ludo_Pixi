@@ -1,5 +1,10 @@
 # 🎲 Ludo PixiJS
 
+
+## 🚀 Live Demo
+**[(https://saibhaskar277.github.io/Ludo_Pixi/)]**
+
+
 A modern, fully interactive Ludo game built with **TypeScript**, **PixiJS v8**, and **GSAP**.
 
 This project is designed with a scalable architecture that cleanly separates:
